@@ -31,7 +31,7 @@ function onStartTimer() {
 
     if (countdown > 0) {
         refs.startBtn.disabled = true;
-
+        
     } 
     }, 1000)
 }
