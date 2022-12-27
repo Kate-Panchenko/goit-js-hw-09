@@ -20,7 +20,6 @@ function randomColorOn () {
 
 function randomColorOff(params) {
     setTimer = clearInterval(setTimer);
-    document.body.style.backgroundColor = "";
     startBtn.disabled = false;
     stopBtn.disabled = true;
 }
