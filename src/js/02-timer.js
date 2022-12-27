@@ -1,5 +1,6 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import Notiflix from 'notiflix';
 
 const refs = {
     inputDatePicker: document.querySelector('#datetime-picker'),
@@ -8,6 +9,7 @@ const refs = {
     hours: document.querySelector('[data-hours]'),
     minutes: document.querySelector('[data-minutes]'),
     seconds: document.querySelector('[data-seconds]'),
+    container: document.querySelector('.timer'),
 };
 
 const options = {
@@ -16,7 +18,12 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
+    if (selectedDates[0] <= new Date()) {
+      Notiflix.Notify.failure("Please choose a date in the future");
+      refs.startBtn.disabled = true;
+    } else {
+      refs.startBtn.disabled = false;
+    }
   },
 };
 
@@ -31,7 +38,12 @@ function onStartTimer() {
 
     if (countdown > 0) {
         refs.startBtn.disabled = true;
-        
+      let time = convertMs(countdown);
+      refs.days.textContent = addLeadingZero(time.days);
+      refs.hours.textContent = addLeadingZero(time.hours);
+      refs.minutes.textContent = addLeadingZero(time.minutes);
+      refs.seconds.textContent = addLeadingZero(time.seconds);
+      refs.container.classList.add("timer-js")
     } 
     }, 1000)
 }
